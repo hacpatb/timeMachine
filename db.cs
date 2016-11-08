@@ -9,7 +9,7 @@ namespace Time_Machine
 {
     class db
     {
-        //  string for release111
+        //  string for release
         //string connectionString = @"User=SYSDBA;Password=masterkey;Database=C:\ElsysPass\Data\BPROT.gdb;DataSource=localhost;Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime = 15; Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size = 8192; ServerType=0;";
         string connectionString = @"User=SYSDBA;Password=masterkey;Database=C:\Users\User\Desktop\firebird\BPROT.gdb;DataSource=localhost;Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime = 15; Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size = 8192; ServerType=0;";
         private DbConnection dbConn = null;
