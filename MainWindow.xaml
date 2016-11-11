@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Time_Machine"
         mc:Ignorable="d"
-        Title="MainWindow" Height="331.876" Width="623.23" ResizeMode="NoResize">
+        Title="MainWindow" Height="414.536" Width="623.23" ResizeMode="NoResize">
     <Grid Margin="10,0,4,3">
         <Grid.RowDefinitions>
             <RowDefinition Height="270"/>
@@ -13,7 +13,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="600"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top" Width="135" Click="searchButton_Click" Height="25"/>
+        <Button x:Name="searchButton" Content="Search Cheks" HorizontalAlignment="Left" Margin="5,45,0,0" VerticalAlignment="Top" Width="135" Click="searchButton_Click" Height="25"/>
         <DatePicker x:Name="myDate" HorizontalAlignment="Left" Margin="5,75,0,0" VerticalAlignment="Top" Width="135" SelectedDateFormat="Short" DisplayDate="2016-04-08" IsEnabled="False" Height="25"/>
         <TextBox x:Name="hoursText" HorizontalAlignment="Left" Height="20" Margin="50,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
         <TextBox x:Name="minText"   HorizontalAlignment="Left" Height="20" Margin="103,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40" />
@@ -34,9 +34,11 @@
                   SelectedValuePath="ID"
                   Margin="5,10,0,0" VerticalAlignment="Top" Width="190" Height="25"/>
         <Button x:Name="addButton" Content="Add Check" HorizontalAlignment="Left" Margin="5,225,0,0" VerticalAlignment="Top" Width="135" Click="addButton_Click" Height="20"/>
-        <DatePicker x:Name="startDateTimePicer" HorizontalAlignment="Left" Margin="255,10,0,0" VerticalAlignment="Top" Height="25" Width="135" DisplayDate="2016-04-13"/>
+        <DatePicker x:Name="startDateTimePicer" HorizontalAlignment="Left" Margin="255,10,0,0" VerticalAlignment="Top" Height="25" Width="135"/>
         <DatePicker x:Name="endDateTimePicer" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Height="25" Width="135"/>
         <Label x:Name="label1_Copy" Content="From" HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top" Height="26" Width="41"/>
         <Label x:Name="label1_Copy1" Content="to" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Height="26" Width="22"/>
+        <TextBox x:Name="connectionStringText" HorizontalAlignment="Left" Height="83" Margin="10,271,0,-83" TextWrapping="Wrap" Text="User=SYSDBA;Password=masterkey;Database=C:\ElsysPass\Data\BPROT.gdb;DataSource=localhost;Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime = 15; Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size = 8192; ServerType=0;" VerticalAlignment="Top" Width="380"/>
+        <Button x:Name="getListButton" Content="Получить список сотрудников" HorizontalAlignment="Left" Height="24" Margin="396,271,0,-26" VerticalAlignment="Top" Width="195" Click="getListButton_Click"/>
     </Grid>
 </Window>

@@ -26,11 +26,11 @@ namespace Time_Machine
             ID = -1;
         }
 
-        public cSetTime(int id)
+        public cSetTime(int id, string connStr)
         {
             ID = -1;
 
-            db db = new db();
+            db db = new db(connStr);
             DbDataReader dbRdr;
 
             try
@@ -82,9 +82,9 @@ namespace Time_Machine
             return string.Format(formatQuery, ID);
         }
 
-        public bool save()
+        public bool save(string connStr)
         {
-            db db = new db();
+            db db = new db(connStr);
             if (!db.dbOpen()) return false;
 
             string saveQuery = "";
@@ -109,10 +109,10 @@ namespace Time_Machine
             return true;
         }
 
-        static public DataSet getPerson()
+        static public DataSet getPerson(string connStr)
         {
             string query = "SELECT a.PERSONID, (a.NAME ||' '|| a.FIRSTNAME ||' '|| a.SECONDNAME) FIO FROM PERSON a";
-            db db = new db();
+            db db = new db(connStr);
             DataSet ds = new DataSet();
             DataTable table = new DataTable();
 
@@ -205,20 +205,21 @@ namespace Time_Machine
         }
         */
 
-        public DataSet getTimeE(int cardid, DateTime? startDate, DateTime? endDate)
+        public DataSet getTimeE(int cardid, DateTime? startDate, DateTime? endDate, string connStr)
         {
 
             string query = "SELECT a.id, a.CTRLAREAID, a.CARDID, a.PERSONID, a.ADATETIME, a.IS_ENTRANCE, a.COMMENT, (p.name || ' ' || p.FIRSTNAME || ' ' || p.SECONDNAME) as FIO " +
                             "FROM ATTENDANCE a " +
-                            "INNER JOIN PERSON p on a.CARDID = p.PERSONID " +
-                            "WHERE CARDID = " + cardid;
+                            "INNER JOIN PERSON p ON a.PERSONID = p.PERSONID " +
+                            "INNER JOIN CARD c ON p.PERSONID = c.PERSONID_IMP " +
+                            "WHERE c.PERSONID_IMP = " + cardid;
             if (startDate != null && endDate != null)
             {
                 query += " AND (ADATETIME BETWEEN " + String.Format("'{0}' ", startDate.Value) + "AND " + String.Format("'{0}' ) ", endDate.Value.AddHours(23.59));
             }
             query += "ORDER BY a.ADATETIME DESC";
 
-            db db = new db();
+            db db = new db(connStr);
             DataSet ds = new DataSet();
             DataTable table = new DataTable();
            

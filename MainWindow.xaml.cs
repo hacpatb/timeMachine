@@ -18,6 +18,7 @@ namespace Time_Machine
         DataSet dataTimes = new DataSet();
         cSetTimeList timeList = new cSetTimeList();
         int cardid = -1;
+     
 
         SolidColorBrush hb = new SolidColorBrush(Colors.Orange);
         SolidColorBrush nb = new SolidColorBrush(Colors.White);
@@ -25,28 +26,42 @@ namespace Time_Machine
         public MainWindow()
         {
             InitializeComponent();
-            nameListComboBox.ItemsSource = cSetTime.getPerson().Tables[0].DefaultView;
-         
+            //nameListComboBox.ItemsSource = cSetTime.getPerson(connectionStringText.Text).Tables[0].DefaultView;
+
+        }
+
+        private void getListButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                nameListComboBox.ItemsSource = cSetTime.getPerson(connectionStringText.Text).Tables[0].DefaultView;
+                if (nameListComboBox.Items.Count > 0) nameListComboBox.SelectedIndex = 1;
+
+            }
+            catch(Exception exc)
+            {
+                MessageBoxResult result = MessageBox.Show(exc.Message, "Ошибочка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
             cSetTimeList s = new cSetTimeList();
             cardid = (int)((DataRowView)nameListComboBox.SelectionBoxItem).Row[0];
-            timeDateGrid.ItemsSource = timeList.getTimeE(cardid:cardid,startDate: (DateTime?)startDateTimePicer.SelectedDate,endDate: (DateTime?)endDateTimePicer.SelectedDate).Tables[0].DefaultView; // dataset
+            timeDateGrid.ItemsSource = timeList.getTimeE(cardid:cardid,startDate: (DateTime?)startDateTimePicer.SelectedDate,endDate: (DateTime?)endDateTimePicer.SelectedDate, connStr: connectionStringText.Text).Tables[0].DefaultView; // dataset
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
             int r = new Random().Next(1, 59);
             t.ADATETIME = new DateTime(myDate.SelectedDate.Value.Year, myDate.SelectedDate.Value.Month, myDate.SelectedDate.Value.Day, Convert.ToInt32(hoursText.Text), Convert.ToInt32(minText.Text),r);
-            t.save();
+            t.save(connStr: connectionStringText.Text);
            
         }
 
         private void init(int ID)
         {
-            t = new cSetTime(ID);
+            t = new cSetTime(ID, connStr: connectionStringText.Text);
             myDate.SelectedDate = t.ADATETIME;
             hoursText.Text = t.ADATETIME.Hour.ToString();
             minText.Text = t.ADATETIME.Minute.ToString();
@@ -66,9 +81,8 @@ namespace Time_Machine
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            addRecord recWin = new addRecord(cardid);
+            addRecord recWin = new addRecord(cardid, connectionStringText.Text);
             recWin.ShowDialog();
-          
         }
 
         
@@ -84,5 +98,7 @@ namespace Time_Machine
                 e.Row.Background = nb;
             }
         }
+
+       
     }
 }

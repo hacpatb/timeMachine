@@ -11,7 +11,8 @@ namespace Time_Machine
     public partial class addRecord : Window
     {
         int cardid = -1;
-        public addRecord(int id)
+        string connStr;
+        public addRecord(int id, string connStr1)
         {
             InitializeComponent();
             Dictionary<bool, string> dicExitEnter = new Dictionary<bool, string>();
@@ -19,6 +20,7 @@ namespace Time_Machine
             dicExitEnter.Add(true, "Пришел");
             exitComboBox.ItemsSource = dicExitEnter;
             cardid = id;
+            connStr = connStr1;
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -30,7 +32,7 @@ namespace Time_Machine
            t.IS_ENTRANCE = (exitComboBox.SelectedIndex == 0)? false : true;
            t.ADATETIME = new DateTime(myDate.SelectedDate.Value.Year, myDate.SelectedDate.Value.Month, myDate.SelectedDate.Value.Day, Convert.ToInt32(hoursText.Text), Convert.ToInt32(minText.Text), new Random().Next(1, 59));
            t.COMMENT = "";
-           t.save();
+           t.save(connStr: connStr);
            this.Close();
         }
     }

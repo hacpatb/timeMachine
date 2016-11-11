@@ -9,17 +9,25 @@ namespace Time_Machine
 {
     class db
     {
-        //  string for release
+        //string for release
         //string connectionString = @"User=SYSDBA;Password=masterkey;Database=C:\ElsysPass\Data\BPROT.gdb;DataSource=localhost;Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime = 15; Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size = 8192; ServerType=0;";
-        string connectionString = @"User=SYSDBA;Password=masterkey;Database=C:\Users\User\Desktop\firebird\BPROT.gdb;DataSource=localhost;Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime = 15; Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size = 8192; ServerType=0;";
+        string connectionString1 = @"User=SYSDBA;Password=masterkey;Database=C:\Users\User\Desktop\firebird\BPROT.gdb;DataSource=localhost;Port=3050;Dialect=3;Charset=NONE;Role=;Connection lifetime = 15; Pooling=true;MinPoolSize=0;MaxPoolSize=50;Packet Size = 8192; ServerType=0;";
         private DbConnection dbConn = null;
         private DbCommand dbCmd = null;
         private DbTransaction dbTr = null;
 
-        public db()
+        public db(string connectionString = "")
         {
-           dbConn = new FbConnection(connectionString);
-           dbCmd = new FbCommand();
+            if (string.IsNullOrEmpty(connectionString)) {
+                dbConn = new FbConnection(connectionString1);
+                dbCmd = new FbCommand();
+            }
+            else
+            {
+                dbConn = new FbConnection(connectionString);
+                dbCmd = new FbCommand();
+            }
+            
         }
 
         public bool dbOpen()
